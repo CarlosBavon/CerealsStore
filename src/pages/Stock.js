@@ -21,14 +21,22 @@ function Stock({ products, setProducts }) {
           <tbody>
             {products.map((p, i) => (
               <tr key={i}>
-                <td>{p.name}</td>              
+                <td>{p.name}</td>
                 <td>{p.quantity >= 1000
                   ? `${p.quantity / 1000} kg`
                   : `${p.quantity} g`}
-                  <button onClick={() => updateStock(i, 100)} className='add-btn'>+100g</button>
-                  <button onClick={() => updateStock(i, -100)} disabled={p.quantity <= 0} className='add-btn'>-100g</button>
-                  <button onClick={() => updateStock(i, 1000)} className='add-btn'>+1kg</button>
-                  <button onClick={() => updateStock(i, -1000)} disabled={p.quantity <= 0} className='add-btn'>-1kg</button>
+                  <div className='100g'>
+                    <button onClick={() => updateStock(i, 100)} className='add-btn'>+100g</button>
+                    <button onClick={() => updateStock(i, -100)} disabled={p.quantity <= 0} className='add-btn'>-100g</button>
+                  </div>
+                  <div className='1kg'>
+                    <button onClick={() => updateStock(i, 1000)} className='add-btn'>+1kg</button>
+                    <button onClick={() => updateStock(i, -1000)} disabled={p.quantity <= 0} className='add-btn'>-1kg</button>
+                  </div>
+                  <div className='10kg'>
+                    <button onClick={() => updateStock(i, 10000)} className='add-btn'>+10kg</button>
+                    <button onClick={() => updateStock(i, -10000)} disabled={p.quantity <= 0} className='add-btn'>-10kg</button>
+                  </div>
                 </td>
               </tr>
             ))}
