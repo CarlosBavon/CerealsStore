@@ -23,7 +23,7 @@ function App() {
         return saved ? JSON.parse(saved) : false;
     });
 
-    // Hardcoded credentials (replace with your own)
+    // Hardcoded credentials
     const USERNAME = "bavon";
     const PASSWORD = "bavon123";
 
