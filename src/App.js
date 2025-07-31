@@ -12,14 +12,14 @@ function App() {
         const saved = localStorage.getItem('products');
         return saved ? JSON.parse(saved) : [];
     });
-    
+
     const [sales, setSales] = useState(() => {
         const saved = localStorage.getItem('sales');
         return saved ? JSON.parse(saved) : [];
     });
-    
+
     const [isLoggedIn, setIsLoggedIn] = useState(() => {
-        const saved = localStorage.getItem('isLoggedIn');
+        const saved = sessionStorage.getItem('isLoggedIn');
         return saved ? JSON.parse(saved) : false;
     });
 
@@ -31,11 +31,9 @@ function App() {
     useEffect(() => {
         const storedProducts = localStorage.getItem('products');
         const storedSales = localStorage.getItem('sales');
-        const storedLogin = localStorage.getItem('isLoggedIn');
 
         if (storedProducts) setProducts(JSON.parse(storedProducts));
         if (storedSales) setSales(JSON.parse(storedSales));
-        if (storedLogin) setIsLoggedIn(JSON.parse(storedLogin));
     }, []);
 
     // Save to LocalStorage when products change
@@ -50,7 +48,7 @@ function App() {
 
     // Save login state
     useEffect(() => {
-        localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+        sessionStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
     }, [isLoggedIn]);
 
     const handleLogin = (username, password) => {
@@ -111,7 +109,7 @@ function LoginForm({ onLogin }) {
             setError('Please enter both username and password');
             return;
         }
-        
+
         const success = onLogin(username, password);
         if (!success) {
             setError('Invalid credentials');
