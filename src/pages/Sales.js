@@ -14,7 +14,7 @@ function Sales({ products, setProducts, sales, setSales }) {
 
         // Convert quantity to grams if unit is kg (assuming products store quantity in grams)
         const quantityInGrams = unit === 'kg' ? quantity * 1000 : quantity;
-        
+
         if (products[index].quantity < quantityInGrams) return;
 
         // Update stock
@@ -24,13 +24,13 @@ function Sales({ products, setProducts, sales, setSales }) {
 
         // Calculate total price
         const price = parseFloat(pricePerKg);
-        const total = unit === 'kg' 
-            ? price * quantity 
+        const total = unit === 'kg'
+            ? price * quantity
             : (price / 1000) * quantity;
 
         // Add sale record
-        setSales([...sales, { 
-            product: selected, 
+        setSales([...sales, {
+            product: selected,
             quantity,
             unit,
             pricePerKg: price, // Store the price per kg used
@@ -47,20 +47,24 @@ function Sales({ products, setProducts, sales, setSales }) {
     const deleteSale = (saleIndex) => {
         const saleToDelete = sales[saleIndex];
         const productIndex = products.findIndex(p => p.name === saleToDelete.product);
-        
+
         if (productIndex !== -1) {
             // Convert quantity back to grams for restoring inventory
-            const quantityInGrams = saleToDelete.unit === 'kg' 
-                ? saleToDelete.quantity * 1000 
+            const quantityInGrams = saleToDelete.unit === 'kg'
+                ? saleToDelete.quantity * 1000
                 : saleToDelete.quantity;
-            
+
             const updatedProducts = [...products];
             updatedProducts[productIndex].quantity += parseInt(quantityInGrams);
             setProducts(updatedProducts);
         }
-        
+
         const updatedSales = sales.filter((_, index) => index !== saleIndex);
         setSales(updatedSales);
+    };
+
+    const calculateTotal = () => {
+        return sales.reduce((sum, sale) => sum + (sale.total || 0), 0).toFixed(2);
     };
 
     return (
@@ -71,11 +75,11 @@ function Sales({ products, setProducts, sales, setSales }) {
                     <option value="">Select Products</option>
                     {products.map((p, i) => <option key={i} value={p.name}>{p.name}</option>)}
                 </select>
-                <input 
-                    value={quantity} 
-                    type="number" 
-                    onChange={(e) => setQuantity(e.target.value)} 
-                    placeholder="Quantity" 
+                <input
+                    value={quantity}
+                    type="number"
+                    onChange={(e) => setQuantity(e.target.value)}
+                    placeholder="Quantity"
                 />
                 <select value={unit} onChange={(e) => setUnit(e.target.value)}>
                     <option value="kg">kg</option>
@@ -115,6 +119,11 @@ function Sales({ products, setProducts, sales, setSales }) {
                                     </td>
                                 </tr>
                             ))}
+                            <tr className="total-row">
+                                <td colSpan="3" style={{ textAlign: 'right', fontWeight: 'bold' }}>Grand Total:</td>
+                                <td style={{ fontWeight: 'bold' }}>{calculateTotal()}</td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </>
                 )}
