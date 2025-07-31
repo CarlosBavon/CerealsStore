@@ -1,0 +1,21 @@
+.products-btn {
+    text-decoration: none;
+    background: #8BC34A;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.products-btn:hover {
+    color: #8BC34A;
+    background: white;
+    border: 1px solid #8BC34A;
+}
+
+.pro-btn {
+    margin: 50px;
+}
+
+.home-content {
+    margin-top: 10%;
+}

@@ -1,0 +1,12 @@
+.custom-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.custom-table th, .custom-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+.custom-table th {
+  background: #8BC34A;
+  color: white;
+}
