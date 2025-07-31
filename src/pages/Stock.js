@@ -27,6 +27,8 @@ function Stock({ products, setProducts }) {
                   : `${p.quantity} g`}
                   <button onClick={() => updateStock(i, 100)} className='add-btn'>+100g</button>
                   <button onClick={() => updateStock(i, -100)} disabled={p.quantity <= 0} className='add-btn'>-100g</button>
+                  <button onClick={() => updateStock(i, 1000)} className='add-btn'>+1kg</button>
+                  <button onClick={() => updateStock(i, -1000)} disabled={p.quantity <= 0} className='add-btn'>-1kg</button>
                 </td>
               </tr>
             ))}
